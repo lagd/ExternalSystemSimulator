@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<binding name="ExternalSystemSimulator.ExtSysInboundJSBinding">
+  <extensionList>
+    <extension name="extSysInboundGetCreditApprovalNumber" type="ext">
+      <element>Operation</element>
+      <elementItemMap>
+        <elementItem key="metadataScript">ExternalSystemSimulator.bindingScript</elementItem>
+      </elementItemMap>
+    </extension>
+  </extensionList>
+  <interface>iface_ExternalSystemSimulator.externalSystemInboundInterface</interface>
+  <label>Ext Sys Inbound JS Binding</label>
+  <metaVersion>25</metaVersion>
+  <provider>prov_cwf.jsprov</provider>
+</binding>

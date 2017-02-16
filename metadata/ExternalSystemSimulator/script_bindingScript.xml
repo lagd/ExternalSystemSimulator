@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<script name="ExternalSystemSimulator.bindingScript">
+  <label>Binding Script</label>
+  <metaVersion>25</metaVersion>
+  <parameterList>
+    <parameter name="input" type="rifp">
+      <type>dstruct_ExternalSystemSimulator.getCreditApprovalNumberRequest</type>
+    </parameter>
+  </parameterList>
+  <script><![CDATA[
+    var output = new DataStructure("ExternalSystemSimulator.ack");
+    output.code = "OK";
+    output.description = "Message Received Successfully";
+    Process.sendMessageToQueue("ExternalSystemSimulator.creditApprovalNumberGenerator","GPgetCreditApprovalNumberRequest",input,null,null,null,null,null,false,false);
+    return output;
+  ]]></script>
+</script>

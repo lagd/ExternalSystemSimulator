@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process name="ExternalSystemSimulator.creditApprovalNumberGenerator">
+  <activity name="start" type="seqActivity">
+    <label>start</label>
+    <x>59.0</x>
+    <y>44.0</y>
+    <childList>
+      <child name="receive" type="opActivity">
+        <element>iface_ExternalSystemSimulator.externalSystemInboundInterface/oper_GPgetCreditApprovalNumberRequest</element>
+        <label>receive</label>
+        <x>197.0</x>
+        <y>40.0</y>
+        <childList>
+          <child name="creditApprovalNumberFilled" type="switchActivity">
+            <label>credit Approval Number Filled ?</label>
+            <x>381.0</x>
+            <y>31.0</y>
+            <childList>
+              <child name="no" type="caseActivity">
+                <label>no</label>
+                <x>311.0</x>
+                <y>221.0</y>
+              </child>
+              <child name="yes" type="caseActivity">
+                <label>yes</label>
+                <x>381.0</x>
+                <y>131.0</y>
+                <childList>
+                  <child name="sendMessageToDestiny" type="scriptActivity">
+                    <label>Send Message To Destiny</label>
+                    <x>539.0</x>
+                    <y>183.0</y>
+                    <methodList>
+                      <method name="cwOnProcActBefore" type="action">
+                        <category>before</category>
+                        <system>true</system>
+                        <script><![CDATA[
+                          var processId = this.process.processDocument.originProcess;
+                          var order = this.process.processDocument.originOrder;
+                          var creditAN = this.process.processDocument.creditApprovalNumber;
+
+                          var output = new DataStructure('ExternalSystemCommunication.getCreditApprovalNumberResponse');
+                          output.destiny.destinyProcess = processId;
+                          output.destiny.destinyOrder = order;
+                          output.creditApprovalNumber = creditAN;
+                          Process.sendMessageToProcess(processId,null,"ExternalSystemCommunication:processInterface/GetCreditApprovalNumberResponse",output,null,null,null);
+                        ]]></script>
+                      </method>
+                    </methodList>
+                  </child>
+                </childList>
+                <methodList>
+                  <method name="cwOnProcActCond" type="action">
+                    <category>cond</category>
+                    <system>true</system>
+                    <script><![CDATA[
+                      ExternalSystemSimulator.debug();
+                      return this.process.processDocument.creditApprovalNumber != null;
+                    ]]></script>
+                  </method>
+                </methodList>
+              </child>
+            </childList>
+          </child>
+        </childList>
+        <methodList>
+          <method name="cwOnProcActAfter" type="action">
+            <category>script</category>
+            <system>true</system>
+            <script><![CDATA[
+              ExternalSystemSimulator.debug();
+              var input = this.activityData;
+              var oldNumber = input.creditApprovalNumberOld;
+              var originProcess = input.origin.originProcess;
+              var originOrder = input.origin.originOrder;
+              this.process.processDocument.creditApprovalNumber = oldNumber;
+              this.process.processDocument.originOrder = originOrder;
+              this.process.processDocument.originProcess = originProcess;
+            ]]></script>
+          </method>
+        </methodList>
+      </child>
+      <child name="back" type="repeatActivity">
+        <element>proc_ExternalSystemSimulator.creditApprovalNumberGenerator/seqActivity_start</element>
+        <label>back</label>
+        <x>60.0</x>
+        <y>144.0</y>
+      </child>
+    </childList>
+    <methodList>
+      <method name="cwOnProcActBefore" type="action">
+        <category>before</category>
+        <system>true</system>
+        <script><![CDATA[
+          ExternalSystemSimulator.debug();
+          this.process.processDocument.creditApprovalNumber = null;
+          this.process.processDocument.originOrder = null;
+          this.process.processDocument.originProcess = null;
+        ]]></script>
+      </method>
+    </methodList>
+  </activity>
+  <curRevision>true</curRevision>
+  <document>doc_ExternalSystemSimulator.procDoc</document>
+  <interface>iface_ExternalSystemSimulator.externalSystemInboundInterface</interface>
+  <label>creditApprovalNumberGenerator</label>
+  <metaVersion>25</metaVersion>
+  <priority>8</priority>
+  <type>Global</type>
+</process>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<header name="AVMMetadata">
+  <APIVersion>2</APIVersion>
+  <author>Unknown</author>
+  <availableList>
+    <available type="loc">
+      <locale>en</locale>
+      <rightToLeft>false</rightToLeft>
+    </available>
+  </availableList>
+  <created>Thu Feb 16 10:17:00 CLT 2017</created>
+  <internalName>ExternalSystemSimulator</internalName>
+  <internalSysVersion>16.0 ICP16-01EP01</internalSysVersion>
+  <label>ExternalSystemSimulator</label>
+  <locale type="loc">
+    <locale>en</locale>
+    <rightToLeft>false</rightToLeft>
+  </locale>
+  <metaVersion>25</metaVersion>
+  <metadataVersion>20150818</metadataVersion>
+</header>

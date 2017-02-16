@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<externalService name="ExternalSystemSimulator.ExternalService">
+  <label>External Service</label>
+  <metaVersion>25</metaVersion>
+  <portList>
+    <port name="extSysInboundJSPort" type="port">
+      <binding>bind_ExternalSystemSimulator.ExtSysInboundJSBinding</binding>
+      <label>Ext Sys Inbound JS Port</label>
+      <recover>5</recover>
+    </port>
+    <port name="extSysInboundSOAPPort" type="port">
+      <binding>bind_ExternalSystemSimulator.ExtSysInboundSOAPBinding</binding>
+      <exportReferencedOnly>true</exportReferencedOnly>
+      <exportSchemaInsideWsdl>true</exportSchemaInsideWsdl>
+      <label>Ext Sys Inbound SOAP Port</label>
+      <listener>true</listener>
+      <recover>5</recover>
+    </port>
+  </portList>
+</externalService>
